@@ -1,5 +1,6 @@
 import cv2
 
+
 def preProcessing(img):
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     blur_img = cv2.GaussianBlur(gray_img, (5, 5), 1)
@@ -10,3 +11,10 @@ def preProcessing(img):
     dial_img = cv2.dilate(canny_img, (5, 5), iterations=2)
     erode_img = cv2.erode(dial_img, (5, 5), iterations=1)
     return erode_img
+
+
+def getContour(img):
+    contours, hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+    for cnt in contours:
+        area = cv2.contourArea(cnt)
+        print(area)
