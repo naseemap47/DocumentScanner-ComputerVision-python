@@ -1,5 +1,5 @@
 import cv2
-from my_utils import preProcessing
+from my_utils import preProcessing, getContour
 
 ###############################
 width_img = 640
@@ -15,6 +15,7 @@ cap.set(4, height_frame)
 while True:
     success, img = cap.read()
     cv2.resize(img, (width_img, height_img))
-    output_img = preProcessing(img)
-    cv2.imshow("Image", output_img)
+    canny_img = preProcessing(img)
+    getContour(canny_img)
+    cv2.imshow("Image", canny_img)
     cv2.waitKey(1)
