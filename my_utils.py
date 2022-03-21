@@ -1,4 +1,5 @@
 import cv2
+import numpy as np
 
 
 def preProcessing(img):
@@ -13,8 +14,18 @@ def preProcessing(img):
     return erode_img
 
 
-def getContour(img):
+def getContour(img, draw_img):
+    max_area = 0
+    biggest_approx = np.array([])
     contours, hierarchy = cv2.findContours(img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
     for cnt in contours:
         area = cv2.contourArea(cnt)
-        print(area)
+        if area > 800:
+            cv2.drawContours(draw_img, cnt, -1, (0, 255, 0), 5)
+            perimeter = cv2.arcLength(cnt, True)
+            approx = cv2.approxPolyDP(cnt, 0.02 * perimeter, True)
+            # print(len(approx))
+            if area > max_area and len(approx) == 4:
+                biggest_approx = approx
+                max_area = area
+    return biggest_approx
