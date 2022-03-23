@@ -21,7 +21,7 @@ cv2.resize(doc_photo, (width_img, height_img))
 canny_img = preProcessing(doc_photo)
 large_approx = getContour(canny_img, doc_photo)
 print(large_approx)
-    # doc_img = getWarp(doc_photo, large_approx, width_img, height_img)
+doc_img = getWarp(doc_photo, large_approx, width_img, height_img)
     # if len(large_approx) != 0:
     #     print(len(large_approx))
     # cv2.imshow("Image", img)
