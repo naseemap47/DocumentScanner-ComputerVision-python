@@ -32,8 +32,8 @@ def getContour(img, draw_img):
     return biggest_approx
 
 def getWarp(img, biggest_approx, width_img, height_img):
-    pts1 = np.array(biggest_approx)
-    pts2 = np.array([
+    pts1 = np.float32(biggest_approx)
+    pts2 = np.float32([
         [0, 0], [width_img, 0],
         [0, height_img],
         [width_img, height_img]
