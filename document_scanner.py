@@ -8,24 +8,25 @@ width_frame = 640
 height_frame = 480
 ###############################
 
-doc_photo = cv2.imread('document sample.jpeg')
+# doc_photo = cv2.imread('document sample.jpeg')
 
+cap = cv2.VideoCapture(0)
+cap.set(3, width_frame)
+cap.set(4, height_frame)
 
-# cap = cv2.VideoCapture(0)
-# cap.set(3, width_frame)
-# cap.set(4, height_frame)
-
-# while True:
-    # success, img = cap.read()
-cv2.resize(doc_photo, (width_img, height_img))
-canny_img = preProcessing(doc_photo)
-large_approx = getContour(canny_img, doc_photo)
-print(large_approx)
-order_pnts = reOrder(large_approx)
-doc_img = getWarp(doc_photo, order_pnts, width_img, height_img)
-    # if len(large_approx) != 0:
-    #     print(len(large_approx))
-    # cv2.imshow("Image", img)
-cv2.imshow("Canny Image", canny_img)
-cv2.imshow("Output Image", doc_img)
-cv2.waitKey(0)
+while True:
+    success, img = cap.read()
+    cv2.resize(img, (width_img, height_img))
+    canny_img = preProcessing(img)
+    large_approx = getContour(canny_img, img)
+    # print(large_approx)
+    if len(large_approx) != 0:
+        print(len(large_approx))
+        ordered_points = reOrder(large_approx)
+        doc_img = getWarp(img, ordered_points, width_img, height_img)
+    else:
+        doc_img = img
+    cv2.imshow("Image", img)
+    cv2.imshow("Canny Image", canny_img)
+    cv2.imshow("Output Image", doc_img)
+    cv2.waitKey(1)
