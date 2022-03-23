@@ -31,16 +31,20 @@ def getContour(img, draw_img):
     cv2.drawContours(draw_img, biggest_approx, -1, (0, 255, 0), 20)
     return biggest_approx
 
+
 def reOrder(points):
     points = points.reshape((4, 2))
     points_ordered = np.zeros((4, 1, 2), np.int32)
     add = points.sum(1)
-    print(add)
 
     # Ordered values into points_ordered
     points_ordered[0] = points[np.argmin(add)]
     points_ordered[3] = points[np.argmax(add)]
-    print(points_ordered)
+    difference = np.diff(points, axis=1)
+    points_ordered[1] = points[np.argmin(difference)]
+    points_ordered[2] = points[np.argmax(difference)]
+    return points_ordered
+
 
 def getWarp(img, biggest_approx, width_img, height_img):
     pts1 = np.float32(biggest_approx)
