@@ -17,10 +17,10 @@ while True:
     cv2.resize(img, (width_img, height_img))
     canny_img = preProcessing(img)
     large_approx = getContour(canny_img, img)
-    # doc_img = getWarp(img, large_approx, width_img, height_img)
+    doc_img = getWarp(img, large_approx, width_img, height_img)
     if len(large_approx) != 0:
         print(len(large_approx))
     cv2.imshow("Image", img)
     cv2.imshow("Canny Image", canny_img)
-    # cv2.imshow("Output Image", doc_img)
+    cv2.imshow("Output Image", doc_img)
     cv2.waitKey(1)
