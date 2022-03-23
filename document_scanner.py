@@ -21,7 +21,7 @@ while True:
     large_approx = getContour(canny_img, img)
     # print(large_approx)
     if len(large_approx) != 0:
-        print(len(large_approx))
+        # print(len(large_approx))
         ordered_points = reOrder(large_approx)
         doc_img = getWarp(img, ordered_points, width_img, height_img)
     else:
