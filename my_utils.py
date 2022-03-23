@@ -21,11 +21,38 @@ def getContour(img, draw_img):
     for cnt in contours:
         area = cv2.contourArea(cnt)
         if area > 800:
-            cv2.drawContours(draw_img, cnt, -1, (0, 255, 0), 5)
+            # cv2.drawContours(draw_img, cnt, -1, (0, 255, 0), 5)
             perimeter = cv2.arcLength(cnt, True)
             approx = cv2.approxPolyDP(cnt, 0.02 * perimeter, True)
             # print(len(approx))
             if area > max_area and len(approx) == 4:
                 biggest_approx = approx
                 max_area = area
+    cv2.drawContours(draw_img, biggest_approx, -1, (0, 255, 0), 20)
     return biggest_approx
+
+
+def reOrder(points):
+    points = points.reshape((4, 2))
+    points_ordered = np.zeros((4, 1, 2), np.int32)
+    add = points.sum(1)
+
+    # Ordered values into points_ordered
+    points_ordered[0] = points[np.argmin(add)]
+    points_ordered[3] = points[np.argmax(add)]
+    difference = np.diff(points, axis=1)
+    points_ordered[1] = points[np.argmin(difference)]
+    points_ordered[2] = points[np.argmax(difference)]
+    return points_ordered
+
+
+def getWarp(img, biggest_approx, width_img, height_img):
+    pts1 = np.float32(biggest_approx)
+    pts2 = np.float32([
+        [0, 0], [width_img, 0],
+        [0, height_img],
+        [width_img, height_img]
+    ])
+    matrix = cv2.getPerspectiveTransform(pts1, pts2)
+    output_img = cv2.warpPerspective(img, matrix, (width_img, height_img))
+    return output_img
