@@ -22,6 +22,12 @@ if image_scanner:
         output_img = getWarp(doc_img, ordered_points, width_img, height_img)
     else:
         output_img = doc_img
+        cv2.putText(
+            output_img, str('Failed to Scan Document'),
+            (width_img//2 - 50, height_img//2 - 30),
+            cv2.FONT_HERSHEY_PLAIN, 1.5,
+            (0, 0, 255), 2
+        )
     cv2.imshow("Image", doc_img)
     cv2.imshow("Canny Image", canny_img)
     cv2.imshow("Output Image", output_img)
