@@ -15,7 +15,7 @@ height_frame = 480
 
 # Image Scanner
 if image_scanner:
-    doc_img = cv2.imread('sample5.jpeg')
+    doc_img = cv2.imread('Document Images/sample1.jpeg')
     cv2.resize(doc_img, (width_img, height_img))
     doc_img_copy = doc_img.copy()
     cv2.resize(doc_img_copy, (width_img, height_img))
