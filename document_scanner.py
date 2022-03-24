@@ -2,6 +2,11 @@ import cv2
 from my_utils import preProcessing, getContour, getWarp, reOrder
 
 ###############################
+# Switches
+image_scanner = True
+camera_scanner = False
+
+# Size Controllers
 width_img = 640
 height_img = 480
 width_frame = 640
@@ -9,9 +14,8 @@ height_frame = 480
 ###############################
 
 # Image Scanner
-image_scanner = True
 if image_scanner:
-    doc_img = cv2.imread('sample9.jpeg')
+    doc_img = cv2.imread('sample5.jpeg')
     cv2.resize(doc_img, (width_img, height_img))
     doc_img_copy = doc_img.copy()
     cv2.resize(doc_img_copy, (width_img, height_img))
@@ -35,8 +39,8 @@ if image_scanner:
     cv2.imshow("Output Image", output_img)
     cv2.waitKey(0)
 
+
 # Web-cam or Camera Scanner
-camera_scanner = False
 if camera_scanner:
     cap = cv2.VideoCapture(0)
     cap.set(3, width_frame)
