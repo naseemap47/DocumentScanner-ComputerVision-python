@@ -55,4 +55,9 @@ def getWarp(img, biggest_approx, width_img, height_img):
     ])
     matrix = cv2.getPerspectiveTransform(pts1, pts2)
     output_img = cv2.warpPerspective(img, matrix, (width_img, height_img))
-    return output_img
+
+    # Crop image to avoid side corrections or noise in the Output image
+    # Reduced 14 pixels from all the sides
+    img_crop = output_img[14:output_img.shape[0] - 14, 14:output_img.shape[1] - 14]
+    img_crop = cv2.resize(img_crop, (width_img, height_img))
+    return img_crop
