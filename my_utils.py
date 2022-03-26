@@ -2,10 +2,27 @@ import cv2
 import numpy as np
 
 
-def preProcessing(img):
+def nothing(a):
+    pass
+
+
+def initializingTrackbars(initialVal=50):
+    cv2.namedWindow("Trackbar")
+    cv2.resizeWindow("Trackbar", 360, 240)
+    cv2.createTrackbar('threshold1', 'Trackbar', initialVal, 255, nothing)
+    cv2.createTrackbar('threshold2', 'Trackbar', initialVal, 255, nothing)
+
+
+def valTrackbar():
+    threshold1 = cv2.getTrackbarPos('threshold1', 'Trackbar')
+    threshold2 = cv2.getTrackbarPos('threshold2', 'Trackbar')
+    return threshold1, threshold2
+
+
+def preProcessing(img, threshold1, threshold2):
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     blur_img = cv2.GaussianBlur(gray_img, (5, 5), 1)
-    canny_img = cv2.Canny(blur_img, 50, 50)
+    canny_img = cv2.Canny(blur_img, threshold1, threshold2)
 
     # Canny image is thin, if there is any shadow like anything it will NOT detect properly
     # So we are using dilate and erode function to solve this problem
