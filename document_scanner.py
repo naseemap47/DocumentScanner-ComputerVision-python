@@ -1,4 +1,6 @@
 import cv2
+
+import my_utils
 from my_utils import preProcessing, getContour, getWarp, reOrder
 
 ###############################
@@ -8,10 +10,13 @@ camera_scanner = False
 
 # Size Controllers
 width_img = 640
-height_img = 480
+height_img = 380
 width_frame = 640
 height_frame = 480
 ###############################
+
+# initializing Trackbars
+my_utils.initializingTrackbars(initialVal=100)
 
 # Image Scanner
 if image_scanner:
@@ -19,7 +24,8 @@ if image_scanner:
     cv2.resize(doc_img, (width_img, height_img))
     doc_img_copy = doc_img.copy()
     cv2.resize(doc_img_copy, (width_img, height_img))
-    canny_img = preProcessing(doc_img)
+    threshold1, threshold2 = my_utils.valTrackbar()
+    canny_img = preProcessing(doc_img, threshold1, threshold2)
     large_approx = getContour(canny_img, doc_img)
     # print(large_approx)
     if len(large_approx) != 0:
@@ -49,7 +55,8 @@ if camera_scanner:
     while True:
         success, img = cap.read()
         cv2.resize(img, (width_img, height_img))
-        canny_img = preProcessing(img)
+        threshold1, threshold2 = my_utils.valTrackbar()
+        canny_img = preProcessing(img, threshold1, threshold2)
         large_approx = getContour(canny_img, img)
         # print(large_approx)
         if len(large_approx) != 0:
