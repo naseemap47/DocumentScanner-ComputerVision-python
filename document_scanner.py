@@ -1,4 +1,5 @@
 import cv2
+import os
 
 import my_utils
 from my_utils import preProcessing, getContour, getWarp, reOrder
@@ -43,8 +44,16 @@ if image_scanner:
     cv2.imshow("Image", doc_img)
     cv2.imshow("Canny Image", canny_img)
     cv2.imshow("Output Image", output_img)
-    cv2.waitKey(0)
 
+    # To Save Scanned Document
+    # Press 's' key to Save
+    if cv2.waitKey(0) & 0xFF == ord('s'):
+        number_docs = os.listdir('Scanned Documents')
+        number_docs = len(number_docs)
+        cv2.imwrite('Scanned Documents/Document' + str(number_docs + 1) +'.jpeg', output_img)
+        cv2.putText(output_img, 'Scan Saved', (width_img // 2 - 230, height_img // 2 + 20),
+                    cv2.FONT_HERSHEY_PLAIN, 5, (0, 255, 0), 5)
+        cv2.waitKey(300)
 
 # Web-cam or Camera Scanner
 if camera_scanner:
@@ -68,4 +77,13 @@ if camera_scanner:
         cv2.imshow("Image", img)
         cv2.imshow("Canny Image", canny_img)
         cv2.imshow("Output Image", doc_img)
-        cv2.waitKey(1)
+
+        # To Save Scanned Document
+        # Press 's' key to Save
+        if cv2.waitKey(1) & 0xFF == ord('s'):
+            number_docs = os.listdir('Scanned Documents')
+            number_docs = len(number_docs)
+            cv2.imwrite('Scanned Documents/Document' + str(number_docs + 1) + '.jpeg', doc_img)
+            cv2.putText(doc_img, 'Scan Saved', (width_img // 2 - 230, height_img // 2 + 20),
+                        cv2.FONT_HERSHEY_PLAIN, 5, (0, 255, 0), 5)
+            cv2.waitKey(300)
