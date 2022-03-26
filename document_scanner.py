@@ -8,7 +8,7 @@ camera_scanner = False
 
 # Size Controllers
 width_img = 640
-height_img = 480
+height_img = 380
 width_frame = 640
 height_frame = 480
 ###############################
