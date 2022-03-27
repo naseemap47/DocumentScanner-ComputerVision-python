@@ -54,7 +54,7 @@ Creating a Document Scanner using OpenCV in python
 * 2.Web-cam Scanner
 * RUN - **document_scanner.py**
 * To save document Press **S** key
-* Document will Save in Scanned Documents folder
+* Scanned Documents available in **Scanned Documents** folder
 
 ## License
 [![CC0](http://seawisphunter.com/minibuffer/api/MIT-License-transparent.png)](https://github.com/naseemap47/DocumentScanner-ComputerVision-python/blob/master/LICENSE)
